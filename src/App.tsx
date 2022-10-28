@@ -1,13 +1,13 @@
-import { useState } from "react";
-import "./styles.css";
-import { Magic } from "magic-sdk";
-import { ConnectExtension } from "@magic-ext/connect";
-import Web3 from "web3";
+import { useState } from 'react';
+import './styles.css';
+import { Magic } from 'magic-sdk';
+import { ConnectExtension } from '@magic-ext/connect';
+import Web3 from 'web3';
 
-const magic = new Magic("pk_live_73AAE8A5F81B1CF3", {
-  network: "mumbai",
-  locale: "en_US",
-  extensions: [new ConnectExtension()]
+const magic = new Magic('pk_live_73AAE8A5F81B1CF3', {
+  network: 'mumbai',
+  locale: 'en_US',
+  extensions: [new ConnectExtension()],
 } as any);
 const web3 = new Web3(magic.rpcProvider);
 
@@ -19,16 +19,16 @@ export default function App() {
     const txnParams = {
       from: publicAddress,
       to: publicAddress,
-      value: web3.utils.toWei("0.01", "ether"),
-      gasPrice: web3.utils.toWei("30", "gwei")
+      value: web3.utils.toWei('0.01', 'ether'),
+      gasPrice: web3.utils.toWei('30', 'gwei'),
     };
     web3.eth
       .sendTransaction(txnParams as any)
-      .on("transactionHash", (hash) => {
-        console.log("the txn hash that was returned to the sdk:", hash);
+      .on('transactionHash', (hash) => {
+        console.log('the txn hash that was returned to the sdk:', hash);
       })
       .then((receipt) => {
-        console.log("the txn receipt that was returned to the sdk:", receipt);
+        console.log('the txn receipt that was returned to the sdk:', receipt);
       })
       .catch((error) => {
         console.log(error);
@@ -49,7 +49,7 @@ export default function App() {
   const signMessage = async () => {
     const publicAddress = (await web3.eth.getAccounts())[0];
     const signedMessage = await web3.eth.personal
-      .sign("My Message", publicAddress, "")
+      .sign('My Message', publicAddress, '')
       .catch((e) => console.log(e));
     console.log(signedMessage);
   };
